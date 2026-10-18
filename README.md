@@ -1,6 +1,6 @@
 # E-Commerce Sales Analysis (Olist) | MySQL + Power BI
 
-End-to-end data analytics project on a Brazilian e-commerce marketplace. I cleaned and analyzed 99K orders in **MySQL**, segmented customers with **RFM analysis**, and built a 4-page interactive **Power BI** dashboard with business recommendations.
+End-to-end data analytics project on a Brazilian e-commerce marketplace. I cleaned and analyzed 99K orders in **MySQL**, segmented customers with **RFM analysis**, and built an interactive **Power BI** dashboard for revenue and product performance, with business recommendations.
 
 ## Business questions
 1. How has revenue grown, and when are the peaks?
@@ -25,7 +25,7 @@ End-to-end data analytics project on a Brazilian e-commerce marketplace. I clean
 | 4 | RFM customer segmentation | `sql/04_rfm_segmentation.sql` |
 | 5 | Built views for the dashboard | `sql/05_dashboard_views.sql` |
 | 6 | Added a delivery and review view | `sql/06_delivery_review_view.sql` |
-| 7 | Built the 4-page Power BI dashboard | `dashboard/Olist_Sales_Dashboard.pbix` |
+| 7 | Built the Power BI dashboard (Overview and Products pages) | `dashboard/Olist_Sales_Dashboard.pbix` |
 
 **Key definitions:** revenue is item price (freight excluded) on delivered orders only. Customers are identified by `customer_unique_id`, because `customer_id` changes with every order. Currency is Brazilian reais (R$).
 
@@ -61,15 +61,13 @@ The top two segments are 30% of customers but generate **58%** of revenue.
 |---|---|
 | Overview | Revenue, orders, average order value, delivery days, monthly trend, top states |
 | Products | Top categories, category share, category ranking by year |
-| Customers | RFM segments, customer share versus revenue share |
-| Delivery and Reviews | Late rate by state, delivery days, review score for late versus on-time orders |
+
+The RFM segmentation, delivery performance, and review analysis are in the SQL scripts (`sql/03` and `sql/04`).
 
 Screenshots are in the `dashboard/screenshots/` folder:
 
 ![Overview](dashboard/screenshots/page1_overview.png)
 ![Products](dashboard/screenshots/page2_products.png)
-![Customers](dashboard/screenshots/page3_customers.png)
-![Delivery and Reviews](dashboard/screenshots/page4_delivery.png)
 
 ## How to reproduce
 1. Download the dataset from Kaggle and copy the CSV files into your MySQL `secure_file_priv` folder (check it with `SHOW VARIABLES LIKE 'secure_file_priv';`).
