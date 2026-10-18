@@ -1,6 +1,6 @@
 # E-Commerce Sales Analysis (Olist) | MySQL + Power BI
 
-End-to-end data analytics project on a Brazilian e-commerce marketplace. I cleaned and analyzed 99K orders in **MySQL**, segmented customers with **RFM analysis**, and built an interactive **Power BI** dashboard for revenue and product performance, with business recommendations.
+End-to-end data analytics project on a Brazilian e-commerce marketplace. I cleaned and analyzed 99K orders in **MySQL**, segmented customers with **RFM analysis**, and built a 4-page interactive **Power BI** dashboard with business recommendations.
 
 ## Business questions
 1. How has revenue grown, and when are the peaks?
@@ -25,7 +25,7 @@ End-to-end data analytics project on a Brazilian e-commerce marketplace. I clean
 | 4 | RFM customer segmentation | `sql/04_rfm_segmentation.sql` |
 | 5 | Built views for the dashboard | `sql/05_dashboard_views.sql` |
 | 6 | Added a delivery and review view | `sql/06_delivery_review_view.sql` |
-| 7 | Built the Power BI dashboard (Overview and Products pages) | `dashboard/Olist_Sales_Dashboard.pbix` |
+| 7 | Built the 4-page Power BI dashboard | `dashboard/Olist_Sales_Dashboard.pbix` |
 
 **Key definitions:** revenue is item price (freight excluded) on delivered orders only. Customers are identified by `customer_unique_id`, because `customer_id` changes with every order. Currency is Brazilian reais (R$).
 
@@ -57,17 +57,46 @@ The top two segments are 30% of customers but generate **58%** of revenue.
 4. **Plan inventory for peaks.** Prepare capacity ahead of November, when sales jump by about half.
 
 ## Dashboard
-| Page | What it shows |
-|---|---|
-| Overview | Revenue, orders, average order value, delivery days, monthly trend, top states |
-| Products | Top categories, category share, category ranking by year |
+A 4-page Power BI report built on SQL views, with year and state slicers on the pages that use them.
 
-The RFM segmentation, delivery performance, and review analysis are in the SQL scripts (`sql/03` and `sql/04`).
+### Page 1: Overview
+- **Cards:** R$13.18M revenue, 96,203 orders, R$137 average order value, 12.5 average delivery days (Jan 2017 to Aug 2018)
+- **Visuals:** monthly revenue trend, top 10 states by revenue
+- **Takeaway:** revenue grew from R$112K to R$839K a month, and São Paulo brings in 38% of it.
+
+### Page 2: Products
+- **Visuals:** top 10 categories, category treemap, top categories by year
+- **Takeaway:** health_beauty leads with R$1.23M (9.3%), followed by watches_gifts (R$1.17M) and bed_bath_table (R$1.02M). In 2018, health_beauty reached R$756K and moved into first place.
+
+### Page 3: Customers (RFM)
+- **Cards:** 93,350 customers, R$13.22M revenue, 3.0% repeat rate
+- **Visuals:** customer share versus revenue share by segment, revenue by segment, segment table with average spend
+- **Takeaway:** Champions and lapsed high spenders are 30% of customers but 58% of revenue. About 13,800 "At risk (high spend)" customers hold R$3.8M.
+
+| Segment | Customers | Revenue | Avg spend |
+|---|---|---|---|
+| Champions | 14,500 | R$3.87M | R$267 |
+| At risk (high spend) | 13,811 | R$3.82M | R$277 |
+| Hibernating | 40,601 | R$3.60M | R$89 |
+| New, lower spend | 21,637 | R$1.20M | R$55 |
+| Repeat customers | 2,801 | R$0.73M | R$260 |
+
+### Page 4: Delivery and Reviews
+- **Cards:** late-order rate (8.1%), average delivery days (12.5), average review score
+- **Visuals:** review score for late versus on-time orders, late rate by state, delivery days by state, late rate by month
+- **Takeaway:** late orders score 2.6 against 4.3 for on-time orders. Pará (23.7 days) and Maranhão (21.5 days, 19.7% late) are the slowest.
+
+| Delivery | Orders | Avg review score |
+|---|---|---|
+| On time | 88,163 | 4.29 |
+| Late | 7,661 | 2.57 |
 
 Screenshots are in the `dashboard/screenshots/` folder:
 
 ![Overview](dashboard/screenshots/page1_overview.png)
 ![Products](dashboard/screenshots/page2_products.png)
+![Customers](dashboard/screenshots/page3_customers.png)
+![Delivery and Reviews](dashboard/screenshots/page4_delivery.png)
 
 ## How to reproduce
 1. Download the dataset from Kaggle and copy the CSV files into your MySQL `secure_file_priv` folder (check it with `SHOW VARIABLES LIKE 'secure_file_priv';`).
