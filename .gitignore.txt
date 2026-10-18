@@ -1,0 +1,9 @@
+# Raw dataset files (download from Kaggle instead)
+*.csv
+data/
+
+# Power BI / OS temp files
+*.pbix.tmp
+~$*
+.DS_Store
+Thumbs.db
